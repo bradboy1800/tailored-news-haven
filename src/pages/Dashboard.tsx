@@ -27,7 +27,7 @@ const Dashboard = () => {
         )}
         {error && (
           <div className="text-center text-red-500">
-            Failed to load news. Please try again later.
+            Failed to load news: {(error as Error).message}
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

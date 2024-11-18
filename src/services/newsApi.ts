@@ -30,9 +30,14 @@ export const fetchNewsByTopics = async (topics: string[]): Promise<NewsArticle[]
         'User-Agent': 'NewsAI/1.0',
       },
     });
+    
+    if (response.data.status === 'error') {
+      throw new Error(response.data.message || 'News API error');
+    }
+    
     return response.data.articles;
-  } catch (error) {
-    console.error('Error fetching news:', error);
-    throw error; // Let React Query handle the error
+  } catch (error: any) {
+    console.error('Error details:', error.response?.data || error.message);
+    throw new Error(error.response?.data?.message || error.message);
   }
 };
