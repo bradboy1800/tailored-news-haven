@@ -23,7 +23,7 @@ export const fetchNewsByTopics = async (topics: string[]): Promise<NewsArticle[]
         apiKey: API_KEY,
         language: 'en',
         sortBy: 'publishedAt',
-        pageSize: 12, // Limit to 12 articles per page
+        pageSize: 12,
       },
       headers: {
         'Accept': 'application/json',
