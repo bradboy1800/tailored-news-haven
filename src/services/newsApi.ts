@@ -23,11 +23,16 @@ export const fetchNewsByTopics = async (topics: string[]): Promise<NewsArticle[]
         apiKey: API_KEY,
         language: 'en',
         sortBy: 'publishedAt',
+        pageSize: 12, // Limit to 12 articles per page
+      },
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'NewsAI/1.0',
       },
     });
     return response.data.articles;
   } catch (error) {
     console.error('Error fetching news:', error);
-    return [];
+    throw error; // Let React Query handle the error
   }
 };
