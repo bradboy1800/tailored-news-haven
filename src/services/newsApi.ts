@@ -3,6 +3,12 @@ import axios from 'axios';
 const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 const BASE_URL = 'https://newsapi.org/v2';
 
+// Use a proxy URL when not running locally
+const getApiUrl = () => {
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  return isLocalhost ? BASE_URL : 'https://newsapi.org/v2';  // You would replace this with your proxy URL
+};
+
 export interface NewsArticle {
   title: string;
   description: string;
@@ -17,7 +23,7 @@ export interface NewsArticle {
 export const fetchNewsByTopics = async (topics: string[]): Promise<NewsArticle[]> => {
   const query = topics.join(' OR ');
   try {
-    const response = await axios.get(`${BASE_URL}/everything`, {
+    const response = await axios.get(`${getApiUrl()}/everything`, {
       params: {
         q: query,
         apiKey: API_KEY,
